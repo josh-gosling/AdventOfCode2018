@@ -3,31 +3,24 @@ package day2
 import java.io.File
 
 fun main() {
-    val input = File("inputs/day2.txt").readLines()
-    var twos = 0
-    var threes = 0
+    val input = File("inputs/day2.txt").readText().split("\n")
+    var twoCount = 0
+    var threeCount = 0
 
     for (id in input) {
         var twoPresent = false
         var threePresent = false
-        val seen = HashMap<Char, Int>()
+        val seen = id.groupingBy { it }.eachCount()
 
-        for (char in id) {
-            if (char !in seen) {
-                seen[char] = 1
-            } else {
-                seen[char] = seen[char]!! + 1
-            }
-        }
-        seen.forEach { (key, value) ->
-            if (!twoPresent && value == 2) {
-                twos += 1
+        seen.forEach {
+            if (!twoPresent && it.value == 2) {
+                twoCount += 1
                 twoPresent = true
-            } else if (!threePresent && value == 3) {
-                threes += 1
+            } else if (!threePresent && it.value == 3) {
+                threeCount += 1
                 threePresent = true
             }
         }
     }
-    println(twos * threes)
+    println(twoCount * threeCount)
 }
