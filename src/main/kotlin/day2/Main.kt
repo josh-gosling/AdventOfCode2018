@@ -2,6 +2,18 @@ package day2
 
 import java.io.File
 
+fun getPrototypeFabricBoxIds(input: List<String>) {
+    for (id in input) {
+        for (secondId in input) {
+            var counter = 0
+            id.forEachIndexed { i, it -> if (i < secondId.length && it == secondId[i]) counter++ }
+            if (counter == secondId.length - 1) {
+                println("$id, $secondId")
+            }
+        }
+    }
+}
+
 fun main() {
     val input = File("inputs/day2.txt").readText().split("\n")
     var twoCount = 0
@@ -23,4 +35,5 @@ fun main() {
         }
     }
     println(twoCount * threeCount)
+    getPrototypeFabricBoxIds(input)
 }
